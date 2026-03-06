@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensi+ -  Smart Menstrual Health Awareness</title>
+    <meta name="description" content="A comprehensive menstrual health awareness app providing education, tracking, and support">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        },
+                        secondary: {
+                            50: '#fef1f7',
+                            100: '#ffe4f1',
+                            200: '#ffcce5',
+                            300: '#ffa3d1',
+                            400: '#ff70b8',
+                            500: '#fb3a94',
+                            600: '#e91e63',
+                            700: '#c2185b',
+                            800: '#a31545',
+                            900: '#861b41',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'heading': ['Poppins', 'Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(236, 72, 153, 0.08)',
+                        'card': '0 6px 24px rgba(236, 72, 153, 0.1)'
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #fdf2f8 0%, #ffffff 100%);
+        }
+        .card-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+        }
+        .nav-gradient {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 242, 248, 0.95) 100%);
+            backdrop-filter: blur(10px);
+        }
+        .smooth-transition {
+            transition: all 0.3s ease;
+        }
+        .active-nav-item {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            color: #db2777;
+        }
+        .login-gradient {
+            background: linear-gradient(135deg, #fce7f3 0%, #ffffff 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Login Screen (Initial View) -->
+    <div id="login-screen" class="min-h-screen flex flex-col items-center justify-center p-6 login-gradient">
+        <div class="w-full max-w-md">
+            <!-- App Logo and Title -->
+            <div class="text-center mb-10">
+                <div class="w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-gradient-to-br from-primary-300 to-primary-500 shadow-soft">
+                    <i class="fas fa-heartbeat text-white text-4xl"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-heading font-bold text-primary-700 mb-2">CycleCare</h1>
+                <p class="text-primary-600">Menstrual Health & Awareness</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="bg-white rounded-2xl p-8 shadow-card">
+                <h2 class="text-2xl font-heading font-semibold text-gray-800 mb-6 text-center">Welcome Back</h2>
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" required 
+                               class="w-full px-4 py-3 rounded-xl border border-primary-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-200 focus:outline-none smooth-transition"
+                               placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" id="password" required 
+                               class="w-full px-4 py-3 rounded-xl border border-primary-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-200 focus:outline-none smooth-transition"
+                               placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" class="h-4 w-4 text-primary-500 rounded focus:ring-primary-200">
+                            <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+                        </div>
+                        <a href="#" class="text-sm text-primary-600 hover:text-primary-700 smooth-transition">Forgot password?</a>
+                    </div>
+                    <button type="submit" 
+                            class="w-full py-3 px-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl hover:from-primary-600 hover:to-primary-700 smooth-transition shadow-md hover:shadow-lg">
+                        Sign In
+                    </button>
+                </form>
+                <p class="mt-6 text-center text-sm text-gray-600">
+                    Don't have an account? 
+                    <a href="#" class="text-primary-600 font-semibold hover:text-primary-700 smooth-transition">Sign up</a>
+                </p>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-sm text-primary-500">
+                    <i class="fas fa-lock mr-2"></i>Your data is secure and private
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Dashboard (Hidden Initially) -->
+    <div id="app-dashboard" class="hidden min-h-screen">
+        <!-- Navigation Sidebar -->
+        <div class="fixed left-0 top-0 h-full w-64 nav-gradient shadow-lg z-50 smooth-transition">
+            <div class="p-6">
+                <!-- App Logo in Sidebar -->
+                <div class="flex items-center space-x-3 mb-10">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+                        <i class="fas fa-heartbeat text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-heading font-bold text-primary-700 text-xl">CycleCare</h2>
+                        <p class="text-xs text-primary-500">Health Tracker</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="space-y-2">
+                    <ul id="nav-menu" class="space-y-1"></ul>
+                </nav>
+
+                <!-- User Profile -->
+                <div class="mt-12 pt-6 border-t border-primary-100">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-300 to-primary-500 flex items-center justify-center">
+                            <span class="text-white font-semibold">U</span>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">User Profile</p>
+                            <p class="text-xs text-primary-500">Premium Member</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="ml-64">
+            <!-- Top Header -->
+            <header class="sticky top-0 z-40 nav-gradient shadow-sm">
+                <div class="flex items-center justify-between px-8 py-4">
+                    <div>
+                        <h1 id="dashboard-title" class="text-2xl font-heading font-bold text-gray-800">Dashboard</h1>
+                        <p id="welcome-message" class="text-primary-600">Welcome back! Track your health today.</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="location-btn" class="px-4 py-2 bg-white rounded-xl border border-primary-200 text-primary-600 hover:bg-primary-50 smooth-transition">
+                            <i class="fas fa-map-marker-alt mr-2"></i>Nearby Services
+                        </button>
+                        <div class="relative">
+                            <button class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-300 to-primary-500 text-white flex items-center justify-center">
+                                <i class="fas fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="p-8">
+                <!-- Dashboard Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card-gradient rounded-2xl p-6 shadow-soft">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-primary-500">Cycle Day</p>
+                                <p class="text-2xl font-bold text-gray-800">Day 14</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-calendar-alt text-primary-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-gradient rounded-2xl p-6 shadow-soft">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-primary-500">Symptoms Today</p>
+                                <p class="text-2xl font-bold text-gray-800">3</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-heartbeat text-primary-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-gradient rounded-2xl p-6 shadow-soft">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-primary-500">Water Intake</p>
+                                <p class="text-2xl font-bold text-gray-800">1.8L</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-tint text-primary-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-gradient rounded-2xl p-6 shadow-soft">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-primary-500">Mood</p>
+                                <p class="text-2xl font-bold text-gray-800">Good</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-smile text-primary-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Sections -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left Column -->
+                    <div class="space-y-8">
+                        <!-- Healthy Food Suggestions -->
+                        <section id="food-section" class="card-gradient rounded-2xl p-6 shadow-card">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-heading font-bold text-gray-800">
+                                    <i class="fas fa-utensils text-primary-500 mr-3"></i>Healthy Food Suggestions
+                                </h2>
+                                <span class="text-sm text-primary-500">During Periods</span>
+                            </div>
+                            <div id="food-cards" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                        </section>
+
+                        <!-- Exercise & Relaxation -->
+                        <section id="exercise-section" class="card-gradient rounded-2xl p-6 shadow-card">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-heading font-bold text-gray-800">
+                                    <i class="fas fa-spa text-primary-500 mr-3"></i>Exercise for Relaxation
+                                </h2>
+                                <span class="text-sm text-primary-500">Yoga & Exercises</span>
+                            </div>
+                            <div id="exercise-cards" class="space-y-4"></div>
+                        </section>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-8">
+                        <!-- Symptom Tracker -->
+                        <section id="symptom-section" class="card-gradient rounded-2xl p-6 shadow-card">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-heading font-bold text-gray-800">
+                                    <i class="fas fa-clipboard-list text-primary-500 mr-3"></i>Symptom Tracker
+                                </h2>
+                                <span class="text-sm text-primary-500">Today's Symptoms</span>
+                            </div>
+                            <div id="symptom-tracker" class="space-y-4"></div>
+                            <div id="symptom-suggestions" class="mt-6 p-4 bg-primary-50 rounded-xl hidden">
+                                <h4 class="font-semibold text-primary-700 mb-2">Suggestions:</h4>
+                                <p id="suggestion-text" class="text-primary-600"></p>
+                            </div>
+                        </section>
+
+                        <!-- Health Tips -->
+                        <section id="tips-section" class="card-gradient rounded-2xl p-6 shadow-card">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-heading font-bold text-gray-800">
+                                    <i class="fas fa-lightbulb text-primary-500 mr-3"></i>Menstrual Hygiene Tips
+                                </h2>
+                                <span class="text-sm text-primary-500">Health Awareness</span>
+                            </div>
+                            <div id="health-tips" class="space-y-4"></div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <section id="faq-section" class="mt-8 card-gradient rounded-2xl p-6 shadow-card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-heading font-bold text-gray-800">
+                            <i class="fas fa-question-circle text-primary-500 mr-3"></i>Period Doubts & FAQ
+                        </h2>
+                        <span class="text-sm text-primary-500">Common Questions</span>
+                    </div>
+                    <div id="faq-accordion" class="space-y-4"></div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="mt-8 card-gradient rounded-2xl p-6 shadow-card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-heading font-bold text-gray-800">
+                            <i class="fas fa-cog text-primary-500 mr-3"></i>Settings & Privacy
+                        </h2>
+                        <span class="text-sm text-primary-500">App Configuration</span>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between p-4 bg-white rounded-xl">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">App Lock</h3>
+                                <p class="text-sm text-gray-600">Secure your app with PIN</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="app-lock-toggle" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-500"></div>
+                            </label>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-xl">
+                            <div class="flex items-start">
+                                <i class="fas fa-shield-alt text-primary-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-semibold text-primary-700">Privacy & Security</h3>
+                                    <p class="text-sm text-primary-600 mt-1">Your health data is encrypted and stored securely. We never share your personal information with third parties.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer -->
+            <footer class="mt-12 px-8 py-6 border-t border-primary-100">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-primary-600">© 2024 CycleCare. All rights reserved.</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-primary-500 hover:text-primary-700 smooth-transition">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="text-primary-500 hover:text-primary-700 smooth-transition">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="text-primary-500 hover:text-primary-700 smooth-transition">
+                            <i class="fab fa-facebook text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Location Services Modal -->
+    <div id="location-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-heading font-bold text-gray-800">Nearby Services</h3>
+                <button id="close-location-modal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="p-4 border border-primary-200 rounded-xl hover:bg-primary-50 smooth-transition">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-hospital text-red-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">City General Hospital</h4>
+                            <p class="text-sm text-gray-600">1.2 km away • 24/7 Emergency</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border border-primary-200 rounded-xl hover:bg-primary-50 smooth-transition">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-clinic-medical text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Women's Health Clinic</h4>
+                            <p class="text-sm text-gray-600">2.5 km away • Gynecology Specialists</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border border-primary-200 rounded-xl hover:bg-primary-50 smooth-transition">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-pills text-green-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">MediCare Pharmacy</h4>
+                            <p class="text-sm text-gray-600">0.8 km away • Open until 10 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <button class="w-full py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 smooth-transition">
+                    <i class="fas fa-directions mr-2"></i>Get Directions
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Layer - All content data
+        const appData = {
+            navigation: [
+                { id: "dashboard", label: "Dashboard", icon: "fas fa-home", active: true },
+                { id: "food", label: "Nutrition", icon: "fas fa-utensils", active: false },
+                { id: "exercise", label: "Exercise", icon: "fas fa-spa", active: false },
+                { id: "symptoms", label: "Symptom Tracker", icon: "fas fa-heartbeat", active: false },
+                { id: "tips", label: "Health Tips", icon: "fas fa-lightbulb", active: false },
+                { id: "faq", label: "FAQ", icon: "fas fa-question-circle", active: false },
+                { id: "settings", label: "Settings", icon: "fas fa-cog", active: false }
+            ],
+            
+            foodSuggestions: [
+                { 
+                    id: 1, 
+                    title: "Iron-rich Foods", 
+                    icon: "fas fa-apple-alt",
+                    description: "Spinach, lentils, and red meat help replenish iron lost during menstruation",
+                    color: "from-red-100 to-red-50",
+                    iconColor: "text-red-500"
+                },
+                { 
+                    id: 2, 
+                    title: "Magnesium Sources", 
+                    icon: "fas fa-seedling",
+                    description: "Bananas, dark chocolate, and nuts help reduce cramps and bloating",
+                    color: "from-green-100 to-green-50",
+                    iconColor: "text-green-500"
+                },
+                { 
+                    id: 3, 
+                    title: "Omega-3 Foods", 
+                    icon: "fas fa-fish",
+                    description: "Salmon, walnuts, and flaxseeds reduce inflammation and pain",
+                    color: "from-blue-100 to-blue-50",
+                    iconColor: "text-blue-500"
+                },
+                { 
+                    id: 4, 
+                    title: "Hydration", 
+                    icon: "fas fa-tint",
+                    description: "Water, herbal teas, and coconut water prevent dehydration headaches",
+                    color: "from-cyan-100 to-cyan-50",
+                    iconColor: "text-cyan-500"
+                }
+            ],
+            
+            exercises: [
+                {
+                    id: 1,
+                    title: "Child's Pose",
+                    description: "Kneel on floor, sit back on heels, fold forward with arms extended. Hold for 1-2 minutes.",
+                    benefit: "Relieves back pain and cramps"
+                },
+                {
+                    id: 2,
+                    title: "Cat-Cow Stretch",
+                    description: "On hands and knees, alternate between arching and rounding your back. Repeat 10 times.",
+                    benefit: "Improves spinal flexibility"
+                },
+                {
+                    id: 3,
+                    title: "Legs Up the Wall",
+                    description: "Lie on back with legs resting vertically against a wall. Hold for 5-10 minutes.",
+                    benefit: "Reduces swelling and fatigue"
+                }
+            ],
+            
+            symptoms: [
+                { id: "cramps", label: "Abdominal Cramps", checked: false },
+                { id: "headache", label: "Headache", checked: true },
+                { id: "fatigue", label: "Fatigue", checked: true },
+                { id: "bloating", label: "Bloating", checked: false },
+                { id: "mood", label: "Mood Swings", checked: false },
+                { id: "backache", label: "Back Pain", checked: true }
+            ],
+            
+            symptomSuggestions: {
+                cramps: "Apply heat pad, drink ginger tea, and try gentle stretching.",
+                headache: "Stay hydrated, reduce screen time, and rest in a dark room.",
+                fatigue: "Take short naps, eat iron-rich foods, and avoid caffeine.",
+                bloating: "Reduce salt intake, drink peppermint tea, and walk regularly.",
+                mood: "Practice deep breathing, listen to music, and talk to friends.",
+                backache: "Use lumbar support, try cat-cow stretches, and apply warm compress."
+            },
+            
+            healthTips: [
+                {
+                    id: 1,
+                    title: "Hygiene Products",
+                    content: "Change sanitary products every 4-6 hours to prevent infections."
+                },
+                {
+                    id: 2,
+                    title: "Proper Disposal",
+                    content: "Wrap used products properly before disposal to maintain hygiene."
+                },
+                {
+                    id: 3,
+                    title: "Cleanliness",
+                    content: "Wash genital area twice daily with mild soap and water."
+                },
+                {
+                    id: 4,
+                    title: "Comfortable Clothing",
+                    content: "Wear loose, breathable cotton underwear during periods."
+                }
+            ],
+            
+            faqs: [
+                {
+                    question: "Is it normal to have irregular periods?",
+                    answer: "Yes, especially during first few years after menarche or before menopause. Stress, weight changes, and hormonal imbalances can also cause irregularities.",
+                    open: false
+                },
+                {
+                    question: "How much blood loss is normal?",
+                    answer: "Typically 30-40ml per cycle (2-3 tablespoons). Soaking through a pad/tampon every 1-2 hours may indicate heavy flow.",
+                    open: false
+                },
+                {
+                    question: "Can I exercise during periods?",
+                    answer: "Yes! Light to moderate exercise can reduce cramps and improve mood. Listen to your body and adjust intensity as needed.",
+                    open: false
+                },
+                {
+                    question: "When should I see a doctor?",
+                    answer: "If you experience severe pain, extremely heavy bleeding, periods lasting more than 7 days, or sudden changes in your cycle.",
+                    open: false
+                }
+            ]
+        };
+
+        // Reusable Render Functions
+        function renderNavigation(items) {
+            return items.map(item => `
+                <li>
+                    <a href="#" data-section="${item.id}" 
+                       class="flex items-center space-x-3 px-4 py-3 rounded-xl smooth-transition ${item.active ? 'active-nav-item' : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600'}">
+                        <i class="${item.icon} w-5 text-center"></i>
+                        <span>${item.label}</span>
+                    </a>
+                </li>
+            `).join('');
+        }
+
+        function renderFoodCards(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-xl p-4 border border-primary-100 hover:shadow-md smooth-transition">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg ${item.color} flex items-center justify-center mr-4">
+                            <i class="${item.icon} ${item.iconColor} text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-1">${item.title}</h3>
+                            <p class="text-sm text-gray-600">${item.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderExerciseCards(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-xl p-4 border border-primary-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-semibold text-gray-800">${item.title}</h3>
+                        <span class="text-xs bg-primary-100 text-primary-600 px-2 py-1 rounded-full">Yoga</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">${item.description}</p>
+                    <div class="flex items-center text-sm text-primary-500">
+                        <i class="fas fa-heart mr-2"></i>
+                        <span>${item.benefit}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderSymptomTracker(items) {
+            return items.map(item => `
+                <div class="flex items-center justify-between p-3 bg-white rounded-xl border border-primary-100">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-heartbeat text-primary-500"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">${item.label}</span>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" data-symptom="${item.id}" ${item.checked ? 'checked' : ''} 
+                               class="symptom-checkbox sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-500"></div>
+                    </label>
+                </div>
+            `).join('');
+        }
+
+        function renderHealthTips(items) {
+            return items.map(item => `
+                <div class="bg-white rounded-xl p-4 border border-primary-100">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center mr-3 mt-1">
+                            <i class="fas fa-check text-primary-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-1">${item.title}</h3>
+                            <p class="text-sm text-gray-600">${item.content}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFAQ(items) {
+            return items.map((item, index) => `
+                <div class="border border-primary-100 rounded-xl overflow-hidden">
+                    <button class="faq-question w-full text-left p-4 bg-white hover:bg-primary-50 smooth-transition flex justify-between items-center" data-index="${index}">
+                        <span class="font-medium text-gray-800">${item.question}</span>
+                        <i class="fas fa-chevron-down text-primary-500 smooth-transition"></i>
+                    </button>
+                    <div class="faq-answer px-4 ${item.open ? 'max-h-48 py-4' : 'max-h-0'} overflow-hidden smooth-transition">
+                        <p class="text-gray-600">${item.answer}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // DOM Elements
+        const loginScreen = document.getElementById('login-screen');
+        const appDashboard = document.getElementById('app-dashboard');
+        const loginForm = document.getElementById('login-form');
+        const navMenu = document.getElementById('nav-menu');
+        const foodCards = document.getElementById('food-cards');
+        const exerciseCards = document.getElementById('exercise-cards');
+        const symptomTracker = document.getElementById('symptom-tracker');
+        const healthTips = document.getElementById('health-tips');
+        const faqAccordion = document.getElementById('faq-accordion');
+        const locationBtn = document.getElementById('location-btn');
+        const locationModal = document.getElementById('location-modal');
+        const closeLocationModal = document.getElementById('close-location-modal');
+        const appLockToggle = document.getElementById('app-lock-toggle');
+        const suggestionText = document.getElementById('suggestion-text');
+        const symptomSuggestions = document.getElementById('symptom-suggestions');
+
+        // Initialize App
+        function initializeApp() {
+            // Render all data-driven content
+            navMenu.innerHTML = renderNavigation(appData.navigation);
+            foodCards.innerHTML = renderFoodCards(appData.foodSuggestions);
+            exerciseCards.innerHTML = renderExerciseCards(appData.exercises);
+            symptomTracker.innerHTML = renderSymptomTracker(appData.symptoms);
+            healthTips.innerHTML = renderHealthTips(appData.healthTips);
+            faqAccordion.innerHTML = renderFAQ(appData.faqs);
+            
+            // Set initial symptom suggestions
+            updateSymptomSuggestions();
+            
+            // Add event listeners
+            setupEventListeners();
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Login Form
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                // Simple validation
+                if (email && password) {
+                    loginScreen.classList.add('hidden');
+                    appDashboard.classList.remove('hidden');
+                    // Update welcome message with email
+                    document.getElementById('welcome-message').textContent = `Welcome back, ${email.split('@')[0]}!`;
+                }
+            });
+
+            // Navigation
+            document.addEventListener('click', function(e) {
+                const navLink = e.target.closest('[data-section]');
+                if (navLink) {
+                    e.preventDefault();
+                    const sectionId = navLink.getAttribute('data-section');
+                    
+                    // Update active state
+                    appData.navigation.forEach(item => {
+                        item.active = item.id === sectionId;
+                    });
+                    navMenu.innerHTML = renderNavigation(appData.navigation);
+                    
+                    // Update dashboard title
+                    const activeItem = appData.navigation.find(item => item.id === sectionId);
+                    if (activeItem) {
+                        document.getElementById('dashboard-title').textContent = activeItem.label;
+                    }
+                    
+                    // Scroll to section
+                    const section = document.getElementById(`${sectionId}-section`);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+
+            // Symptom Tracker
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('symptom-checkbox')) {
+                    const symptomId = e.target.getAttribute('data-symptom');
+                    const symptom = appData.symptoms.find(s => s.id === symptomId);
+                    if (symptom) {
+                        symptom.checked = e.target.checked;
+                    }
+                    updateSymptomSuggestions();
+                }
+            });
+
+            // FAQ Accordion
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('faq-question')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    const answer = e.target.nextElementSibling;
+                    const icon = e.target.querySelector('i');
+                    
+                    // Toggle current FAQ
+                    appData.faqs[index].open = !appData.faqs[index].open;
+                    
+                    // Update UI
+                    if (appData.faqs[index].open) {
+                        answer.classList.remove('max-h-0', 'py-0');
+                        answer.classList.add('max-h-48', 'py-4');
+                        icon.classList.add('rotate-180');
+                    } else {
+                        answer.classList.remove('max-h-48', 'py-4');
+                        answer.classList.add('max-h-0', 'py-0');
+                        icon.classList.remove('rotate-180');
+                    }
+                }
+            });
+
+            // Location Services
+            locationBtn.addEventListener('click', function() {
+                locationModal.classList.remove('hidden');
+                locationModal.classList.add('flex');
+            });
+
+            closeLocationModal.addEventListener('click', function() {
+                locationModal.classList.add('hidden');
+                locationModal.classList.remove('flex');
+            });
+
+            // Close modal when clicking outside
+            locationModal.addEventListener('click', function(e) {
+                if (e.target === locationModal) {
+                    locationModal.classList.add('hidden');
+                    locationModal.classList.remove('flex');
+                }
+            });
+
+            // App Lock Toggle
+            appLockToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    showNotification('App lock enabled. Your data is now secured with PIN.');
+                } else {
+                    showNotification('App lock disabled.');
+                }
+            });
+
+            // Prevent default behavior for all anchor tags
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // Helper Functions
+        function updateSymptomSuggestions() {
+            const checkedSymptoms = appData.symptoms.filter(s => s.checked);
+            
+            if (checkedSymptoms.length > 0) {
+                // Get suggestions for checked symptoms
+                const suggestions = checkedSymptoms.map(s => 
+                    `<strong>${s.label}:</strong> ${appData.symptomSuggestions[s.id]}`
+                ).join('<br>');
+                
+                suggestionText.innerHTML = suggestions;
+                symptomSuggestions.classList.remove('hidden');
+            } else {
+                symptomSuggestions.classList.add('hidden');
+            }
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-white rounded-xl p-4 shadow-lg border-l-4 border-primary-500 z-50 max-w-sm';
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-bell text-primary-500"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-800">${message}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'translate-x-full');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
